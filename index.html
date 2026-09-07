@@ -113,9 +113,11 @@
     border-bottom:1px solid var(--line);
   }
   .nav-row{
+    position:relative;
     display:flex; align-items:center; justify-content:space-between;
-    padding:16px 28px;
+    padding:14px 28px;
     max-width:1180px; margin:0 auto;
+    gap:16px;
   }
   .brand{
     font-family:'Fraunces', serif;
@@ -124,6 +126,7 @@
     color:var(--slate);
     text-decoration:none;
     display:flex; flex-direction:column; line-height:1.05;
+    flex:none;
   }
   .brand span{
     font-family:'Public Sans', sans-serif;
@@ -132,23 +135,36 @@
     letter-spacing:0.14em;
     color:var(--terracotta);
     margin-top:3px;
+    white-space:nowrap;
   }
+  nav{flex:1; display:flex; justify-content:center;}
   nav ul{
     list-style:none; display:flex; gap:30px; margin:0; padding:0;
   }
   nav a{
     text-decoration:none; color:var(--slate); font-weight:600; font-size:0.94rem;
     padding-bottom:3px; border-bottom:2px solid transparent;
+    white-space:nowrap;
   }
   nav a:hover{border-bottom-color:var(--terracotta);}
-  .nav-actions{display:flex; align-items:center; gap:18px;}
+  .nav-actions{display:flex; align-items:center; gap:16px; flex:none;}
   .phone-link{
     display:flex; align-items:center; gap:8px;
     font-weight:700; color:var(--slate); text-decoration:none; font-size:0.95rem;
+    white-space:nowrap;
   }
   .phone-link svg{width:18px; height:18px; flex:none;}
-  .menu-toggle{display:none; background:none; border:none; cursor:pointer; padding:6px;}
-  .menu-toggle span{display:block; width:24px; height:2px; background:var(--slate); margin:5px 0;}
+  .menu-toggle{
+    display:none; background:none; border:none; cursor:pointer;
+    padding:8px; margin:-8px; flex:none;
+    width:40px; height:40px;
+    align-items:center; justify-content:center;
+    flex-direction:column; gap:5px;
+  }
+  .menu-toggle span{display:block; width:22px; height:2px; background:var(--slate); border-radius:1px; transition:transform .2s ease, opacity .2s ease;}
+  .menu-toggle.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .menu-toggle.is-open span:nth-child(2){opacity:0;}
+  .menu-toggle.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
   /* ---------- roofline divider ---------- */
   .roofline{
@@ -503,8 +519,29 @@
 
   /* ---------- responsive ---------- */
   @media (max-width:900px){
-    nav{display:none;}
-    .menu-toggle{display:block;}
+    .nav-row{padding:12px 20px;}
+    .brand{font-size:1.08rem;}
+    nav{
+      display:none;
+      position:absolute; top:100%; left:0; right:0;
+      background:var(--paper);
+      border-bottom:1px solid var(--line);
+      box-shadow:0 12px 24px rgba(34,30,26,0.10);
+      padding:8px 20px 18px;
+      justify-content:flex-start;
+    }
+    nav.is-open{display:block;}
+    nav ul{flex-direction:column; gap:0; width:100%;}
+    nav li{width:100%;}
+    nav a{
+      display:block; width:100%; padding:14px 4px;
+      border-bottom:1px solid var(--line);
+    }
+    nav li:last-child a{border-bottom:none;}
+    .nav-actions{gap:10px;}
+    .phone-link .phone-text{display:none;}
+    .nav-actions .btn{padding:10px 16px; font-size:0.86rem;}
+    .menu-toggle{display:flex;}
     .hero .wrap{grid-template-columns:1fr;}
     .hero-art{order:-1;}
     .metier-grid, .zone-grid, .contact-grid{grid-template-columns:1fr;}
@@ -542,10 +579,10 @@
     <div class="nav-actions">
       <a class="phone-link" href="tel:+33603564392">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-        06 03 56 43 92
+        <span class="phone-text">06 03 56 43 92</span>
       </a>
       <a href="#contact" class="btn">Devis gratuit</a>
-      <button class="menu-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+      <button class="menu-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
@@ -801,8 +838,8 @@
     <div class="avant-apres-grid">
       <div class="aa-card">
         <div class="aa-images">
-          <figure class="avant"><img src="images/toiture-demoussage-avant.jpg" alt="Toiture couverte de mousse avant démoussage, Côte-d'Or" loading="lazy"><figcaption>AVANT</figcaption></figure>
-          <figure class="apres"><img src="images/toiture-demoussage-apres.jpg" alt="Toiture nettoyée et démoussée après intervention" loading="lazy"><figcaption>APRÈS</figcaption></figure>
+          <figure class="avant"><img src="toiture-demoussage-avant.jpg" alt="Toiture couverte de mousse avant démoussage, Côte-d'Or" loading="lazy"><figcaption>AVANT</figcaption></figure>
+          <figure class="apres"><img src="toiture-demoussage-apres.jpg" alt="Toiture nettoyée et démoussée après intervention" loading="lazy"><figcaption>APRÈS</figcaption></figure>
         </div>
         <div class="aa-card-body">
           <h4>Nettoyage &amp; démoussage de toiture</h4>
@@ -811,8 +848,8 @@
       </div>
       <div class="aa-card">
         <div class="aa-images">
-          <figure class="avant"><img src="images/facade-toiture-avant-1.jpg" alt="Maison avant rénovation de toiture" loading="lazy"><figcaption>AVANT</figcaption></figure>
-          <figure class="apres"><img src="images/facade-toiture-apres-1.jpg" alt="Maison après rénovation de toiture" loading="lazy"><figcaption>APRÈS</figcaption></figure>
+          <figure class="avant"><img src="facade-toiture-avant-1.jpg" alt="Maison avant rénovation de toiture" loading="lazy"><figcaption>AVANT</figcaption></figure>
+          <figure class="apres"><img src="facade-toiture-apres-1.jpg" alt="Maison après rénovation de toiture" loading="lazy"><figcaption>APRÈS</figcaption></figure>
         </div>
         <div class="aa-card-body">
           <h4>Remise en état de couverture</h4>
@@ -821,8 +858,8 @@
       </div>
       <div class="aa-card">
         <div class="aa-images">
-          <figure class="avant"><img src="images/chien-assis-avant.jpg" alt="Lucarne chien-assis dégradée avant réfection" loading="lazy"><figcaption>AVANT</figcaption></figure>
-          <figure class="apres"><img src="images/chien-assis-apres.jpg" alt="Lucarne chien-assis refaite en zinc après travaux" loading="lazy"><figcaption>APRÈS</figcaption></figure>
+          <figure class="avant"><img src="chien-assis-avant.jpg" alt="Lucarne chien-assis dégradée avant réfection" loading="lazy"><figcaption>AVANT</figcaption></figure>
+          <figure class="apres"><img src="chien-assis-apres.jpg" alt="Lucarne chien-assis refaite en zinc après travaux" loading="lazy"><figcaption>APRÈS</figcaption></figure>
         </div>
         <div class="aa-card-body">
           <h4>Réfection de lucarne (chien-assis)</h4>
@@ -831,8 +868,8 @@
       </div>
       <div class="aa-card">
         <div class="aa-images">
-          <figure class="avant"><img src="images/ravalement-avant-1.jpg" alt="Façade sale avant ravalement, Côte-d'Or" loading="lazy"><figcaption>AVANT</figcaption></figure>
-          <figure class="apres"><img src="images/ravalement-apres-1.jpg" alt="Façade repeinte après ravalement complet" loading="lazy"><figcaption>APRÈS</figcaption></figure>
+          <figure class="avant"><img src="ravalement-avant-1.jpg" alt="Façade sale avant ravalement, Côte-d'Or" loading="lazy"><figcaption>AVANT</figcaption></figure>
+          <figure class="apres"><img src="ravalement-apres-1.jpg" alt="Façade repeinte après ravalement complet" loading="lazy"><figcaption>APRÈS</figcaption></figure>
         </div>
         <div class="aa-card-body">
           <h4>Ravalement de façade complet</h4>
@@ -841,8 +878,8 @@
       </div>
       <div class="aa-card">
         <div class="aa-images">
-          <figure class="avant"><img src="images/ravalement-avant-2.jpg" alt="Façade encrassée avant ravalement" loading="lazy"><figcaption>AVANT</figcaption></figure>
-          <figure class="apres"><img src="images/ravalement-apres-2.jpg" alt="Façade propre après ravalement et peinture" loading="lazy"><figcaption>APRÈS</figcaption></figure>
+          <figure class="avant"><img src="ravalement-avant-2.jpg" alt="Façade encrassée avant ravalement" loading="lazy"><figcaption>AVANT</figcaption></figure>
+          <figure class="apres"><img src="ravalement-apres-2.jpg" alt="Façade propre après ravalement et peinture" loading="lazy"><figcaption>APRÈS</figcaption></figure>
         </div>
         <div class="aa-card-body">
           <h4>Ravalement &amp; mise en peinture</h4>
@@ -851,8 +888,8 @@
       </div>
       <div class="aa-card">
         <div class="aa-images">
-          <figure class="avant"><img src="images/noue-avant.jpg" alt="Noue de toiture encombrée de feuilles avant nettoyage" loading="lazy"><figcaption>AVANT</figcaption></figure>
-          <figure class="apres"><img src="images/noue-apres.jpg" alt="Noue de toiture nettoyée et traitée après intervention" loading="lazy"><figcaption>APRÈS</figcaption></figure>
+          <figure class="avant"><img src="noue-avant.jpg" alt="Noue de toiture encombrée de feuilles avant nettoyage" loading="lazy"><figcaption>AVANT</figcaption></figure>
+          <figure class="apres"><img src="noue-apres.jpg" alt="Noue de toiture nettoyée et traitée après intervention" loading="lazy"><figcaption>APRÈS</figcaption></figure>
         </div>
         <div class="aa-card-body">
           <h4>Nettoyage de noue &amp; zinguerie</h4>
@@ -866,11 +903,11 @@
       <p style="color:#6B6355; font-size:0.94rem;">Un aperçu du travail en hauteur, sur toiture comme sur façade.</p>
     </div>
     <div class="action-grid">
-      <figure><img src="images/chantier-faitage.jpg" alt="Pose d'un épi de faîtage sur toiture en Côte-d'Or" loading="lazy"><figcaption>Pose de faîtage</figcaption></figure>
-      <figure><img src="images/chantier-nacelle.jpg" alt="Nettoyage de toiture en nacelle élévatrice" loading="lazy"><figcaption>Nettoyage en nacelle</figcaption></figure>
-      <figure><img src="images/chantier-demoussage-nacelle.jpg" alt="Démoussage de toiture au nettoyeur haute pression" loading="lazy"><figcaption>Démoussage toiture</figcaption></figure>
-      <figure><img src="images/chantier-renovation-toiture.jpg" alt="Rénovation de toiture avec isolation apparente" loading="lazy"><figcaption>Rénovation &amp; isolation</figcaption></figure>
-      <figure><img src="images/chantier-pose-tuiles.jpg" alt="Pose de tuiles faîtières et accessoires d'étanchéité" loading="lazy"><figcaption>Pose de tuiles faîtières</figcaption></figure>
+      <figure><img src="chantier-faitage.jpg" alt="Pose d'un épi de faîtage sur toiture en Côte-d'Or" loading="lazy"><figcaption>Pose de faîtage</figcaption></figure>
+      <figure><img src="chantier-nacelle.jpg" alt="Nettoyage de toiture en nacelle élévatrice" loading="lazy"><figcaption>Nettoyage en nacelle</figcaption></figure>
+      <figure><img src="chantier-demoussage-nacelle.jpg" alt="Démoussage de toiture au nettoyeur haute pression" loading="lazy"><figcaption>Démoussage toiture</figcaption></figure>
+      <figure><img src="chantier-renovation-toiture.jpg" alt="Rénovation de toiture avec isolation apparente" loading="lazy"><figcaption>Rénovation &amp; isolation</figcaption></figure>
+      <figure><img src="chantier-pose-tuiles.jpg" alt="Pose de tuiles faîtières et accessoires d'étanchéité" loading="lazy"><figcaption>Pose de tuiles faîtières</figcaption></figure>
     </div>
     <p class="gallery-note">Photos de chantiers réels réalisés par Pro Rénove Habitat 21.</p>
   </div>
@@ -1032,20 +1069,19 @@
 </footer>
 
 <script>
-  document.querySelector('.menu-toggle').addEventListener('click', function(){
-    var nav = document.querySelector('nav');
-    nav.style.display = (nav.style.display === 'block') ? 'none' : 'block';
-    if(nav.style.display === 'block'){
-      nav.style.position = 'absolute';
-      nav.style.top = '68px';
-      nav.style.left = '0';
-      nav.style.right = '0';
-      nav.style.background = '#FAF7EF';
-      nav.style.padding = '20px 28px';
-      nav.style.borderBottom = '1px solid rgba(34,30,26,0.14)';
-      nav.querySelector('ul').style.flexDirection = 'column';
-      nav.querySelector('ul').style.gap = '16px';
-    }
+  var menuToggle = document.querySelector('.menu-toggle');
+  var mainNav = document.querySelector('nav');
+  menuToggle.addEventListener('click', function(){
+    var open = mainNav.classList.toggle('is-open');
+    menuToggle.classList.toggle('is-open', open);
+    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  mainNav.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click', function(){
+      mainNav.classList.remove('is-open');
+      menuToggle.classList.remove('is-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    });
   });
 </script>
 </body>
